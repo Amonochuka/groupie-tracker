@@ -1,3 +1,4 @@
+```
 groupie-tracker/
 ├── main.go
 ├── api.go
@@ -7,3 +8,4 @@ groupie-tracker/
 ├── templates/
 ├── static/
 └── go.mod
+```
