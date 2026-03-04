@@ -1,0 +1,42 @@
+# ==========================
+# Go build files / binaries
+# ==========================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/bin/
+/build/
+/out/
+
+# ==========================
+# Dependency directories
+# ==========================
+vendor/
+
+# ==========================
+# IDE / Editor files
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# ==========================
+# Logs
+# ==========================
+*.log
+
+# ==========================
+# Temporary files
+# ==========================
+*.tmp
+*.temp
+
+# ==========================
+# Keep project folders
+# ==========================
+# templates/ and static/ must be committed, so we do NOT ignore them
+# go.mod and go.sum must be committed
