@@ -19,7 +19,7 @@ func main(){
 	if err!=nil{
 		log.Fatal(err)
 	}
-	http.HandleFunc("/",handlers.HomeHandler)
+	http.HandleFunc("/",handlers.HomeHandler(artists))
 	log.Println("Server running on http://localhost:8080")
 	log.Println(http.ListenAndServe(":8080",nil))
 
