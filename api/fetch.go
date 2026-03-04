@@ -5,11 +5,14 @@ import(
 	"groupie-tracker/models"
 )
 var artists []models.Artist
-func FetchArtists()error{
+
+//retrieve data from the Api and decode it to artists slice
+func FetchArtists() ([]models.Artist, error){
 resp,err:=http.Get("https://groupietrackers.herokuapp.com/api/artists" )
 	if err !=nil{
-		return err
+		return nil, err
 	}
 defer resp.Body.Close()
-	return json.NewDecoder(resp.Body).Decode(&artists)
+	err = json.NewDecoder(resp.Body).Decode(&artists)
+	return artists ,err
 }
