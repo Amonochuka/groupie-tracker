@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"log"
 	"net/http"
 	// "strconv"
@@ -14,8 +14,8 @@ import (
 
 
 func main(){
-	err:=api.FetchArtists()
-	// fmt.Println(len(artists))
+	artists, err:=api.FetchArtists()
+	fmt.Println(len(artists))
 	if err!=nil{
 		log.Fatal(err)
 	}
