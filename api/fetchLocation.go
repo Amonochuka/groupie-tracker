@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"groupie-tracker/models"
 	"net/http"
 )
@@ -30,4 +31,17 @@ func fetchLocationByID(locations []models.Location, ID int) *models.Location {
 		}
 	}
 	return nil
+}
+
+func fetchLocationByID1(ID int) (*models.Location, error) {
+	locations, err := FetchLocation()
+	if err != nil {
+		return nil, err
+	}
+	for i := range locations {
+		if locations[i].ID == ID {
+			return &locations[i], nil
+		}
+	}
+	return nil, errors.New("location not found")
 }
