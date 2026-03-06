@@ -7,14 +7,14 @@ import (
 	"net/http"
 )
 
-func FetchLocations() ([]models.Location, error) {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+func FetchRelations() ([]models.Relation, error) {
+	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	var data models.LocationResponse
+	var data models.RelationResponse
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
 	if err != nil {
@@ -24,14 +24,14 @@ func FetchLocations() ([]models.Location, error) {
 
 }
 
-func fetchLocationByID(ID int) (*models.Relation, error) {
-	relations, err := FetchRelations()
+func fetchRelationByID(ID int) (*models.Location, error) {
+	locations, err := FetchLocations()
 	if err != nil {
 		return nil, err
 	}
-	for i := range relations {
-		if relations[i].ID == ID {
-			return &relations[i], nil
+	for i := range locations {
+		if locations[i].ID == ID {
+			return &locations[i], nil
 		}
 	}
 	return nil, errors.New("location not found")
