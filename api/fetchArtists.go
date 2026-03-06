@@ -20,7 +20,7 @@ func FetchArtists() ([]models.Artist, error) {
 	return artists, err
 }
 
-func fetchArtistByID(ID int) (*models.Artist, error) {
+func FetchArtistByID(ID int) (*models.Artist, error) {
 	artists, err := FetchArtists()
 	if err != nil {
 		return nil, err
