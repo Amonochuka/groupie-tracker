@@ -18,3 +18,15 @@ type Location struct {
 type LocationResponse struct{
 	Index []Location `json:"index"`
 }
+
+type Date struct {
+	ID int `json:"id"`
+	Dates []string `json:"dates"`
+}
+type DateResponse struct {
+	Index []Date `json:"index"`
+}
+type Relation struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
