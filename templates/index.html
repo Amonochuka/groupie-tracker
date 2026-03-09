@@ -8,9 +8,16 @@
 
 <body>
 
-    <header>
-        <h1>Groupie Tracker</h1>
+    <header class="header">
+        <div class="header-container">
+            <h1>Groupie Tracker</h1>
         <p>Discover Artists & Concert Information</p>
+
+        <form action="/search" method="GET" class="search-bar">
+            <input type="text" name="search" placeholder="Search artists..." />
+            <button type="submit"><Search></Search></button>
+        </form>
+        </div>
     </header>
 
    <main class="cards-container">
@@ -24,54 +31,5 @@
         </div>
         {{end}}
     </main>
-    <!-- <main class="cards-container">
-{{range .Artists}}
-<div class="card">
-    <img src="{{.Image}}" alt="{{.Name}}">
-    <h2>{{.Name}}</h2>
-    <p><strong>Formed:</strong> {{.CreationDate}}</p>
-    <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
-    <a href="/artist?id={{.ID}}" class="btn">View Details</a>
-</div>
-{{end}} -->
-<!-- 
-<div class="artists">
-
-{{range .Artists}}
-
-<div class="card">
-
-<img src="{{.Image}}" alt="{{.Name}}">
-
-<h2>{{.Name}}</h2>
-
-<p><strong>First Album:</strong> {{.FirstAlbum}}</p>
-
-<p><strong>Members:</strong></p>
-
-<ul>
-{{range .Members}}
-<li>{{.}}</li>
-{{end}}
-</ul>
-
-</div>
-
-{{end}}
-
-</div> -->
-<!-- <h1>Concert Dates</h1>
-
-{{range .Dates}}
-
-<h3>Artist ID: {{.ID}}</h3>
-
-<ul>
-{{range .Dates}} -->
-<!-- <li>{{.}}</li>
-{{end}}
-</ul> -->
-
-<!-- {{end}} -->
 </body>
 </html>
