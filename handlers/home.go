@@ -3,7 +3,8 @@ package handlers
 import (
 	"html/template"
 	"net/http"
-	"strconv"
+	// "strconv"
+	// "strings"
 
 	"groupie-tracker/api"
 	"groupie-tracker/models"
@@ -16,12 +17,16 @@ type PageData struct {
 
 // HomeHandler returns an http.HandlerFunc that uses the provided artists
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	// query:=strings.ToLower(r.URL.Query().Get("search"))
 	artists, err := api.FetchArtists()
 	if err != nil {
 		http.Error(w, "Artist error", 500)
 		return
 	}
-
+// relations ,err:= api.FetchRelations()
+if err != nil{
+	http.Error(w,"RelationsError",500)
+}
 	dates, err := api.GetDates()
 	if err != nil {
 		http.Error(w, "Dates error", 500)
@@ -43,23 +48,3 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func ArtistHandler(w http.ResponseWriter, r *http.Request){
-	idStr := r.URL.Query().Get("id")
-
-	id, err := strconv.Atoi(idStr)
-	if err != nil{
-		http.Error(w, "invalid artist ID", 400)
-		return
-	}
-
-	artist, err := api.FetchArtistByID(id)
-	if err != nil{
-		http.Error(w, "artist not found", 404)
-	}
-
-	tmpl, err := template.ParseFiles()
-	if err!= nil{
-		http.Error(w, "template error", 500)
-	}
-	tmpl.Execute(w, artist)
-}
