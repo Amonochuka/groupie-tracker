@@ -17,7 +17,10 @@ func FetchArtists() ([]models.Artist, error) {
 	}
 	defer resp.Body.Close()
 	err = json.NewDecoder(resp.Body).Decode(&artists)
-	return artists, err
+	if err != nil{
+		return nil,err
+	}
+	return artists, nil
 }
 
 func FetchArtistByID(ID int) (*models.Artist, error) {
