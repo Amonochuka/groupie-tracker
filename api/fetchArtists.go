@@ -17,19 +17,22 @@ func FetchArtists() ([]models.Artist, error) {
 	}
 	defer resp.Body.Close()
 	err = json.NewDecoder(resp.Body).Decode(&artists)
-	return artists, err
+	if err != nil{
+		return nil,err
+	}
+	return artists, nil
 }
 
-func fetchArtistsByID(ID int) (models.Artist, error) {
+func FetchArtistByID(ID int) (*models.Artist, error) {
 	artists, err := FetchArtists()
 	if err != nil {
-		return models.Artist{}, err
+		return nil, err
 	}
 
-	for _, artist := range artists {
-		if artist.ID == ID {
-			return artist, nil
+	for i := range artists {
+		if artists[i].ID == ID {
+			return &artists[i], nil
 		}
 	}
-	return models.Artist{}, errors.New("artist not found")
+	return nil, errors.New("artist not found")
 }
