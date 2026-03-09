@@ -15,9 +15,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 40px;
+    padding: 35px 40px;
 }
-.search-bar{
+.search-bar {
     display: flex;
     gap: 10px;
 }
@@ -27,8 +27,16 @@ body {
     border: none;
     outline: none;
 }
-.search-bar{
-    padding: 8px 1;
+.search-bar button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    background: #ff4b2b;
+    color: white;
+    cursor: pointer;
+}
+.search-bar button:hover {
+    background: #ff2e00;
 }
 .cards-container {
     display: grid;
