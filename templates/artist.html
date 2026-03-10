@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>{{.Name}}</title>
 </head>
-<body>
+<body class="artist-body">
     <header class="header">
         <h1>{{.Name}}</h1>
     </header>
@@ -21,8 +21,8 @@
             <li>{{.}}</li>
             {{end}}
         </ul>
+        <a href="/" class="btn">Go Back to Artist</a>
         </div>
-        
     </main>
 </body>
 </html>
