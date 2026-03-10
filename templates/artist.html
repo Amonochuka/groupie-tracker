@@ -2,9 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>artist</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{{.Name}}</title>
 </head>
 <body>
-    
+    <header class="header">
+        <h1>{{.Name}}</h1>
+    </header>
+    <main class="artist-page">
+        <div class="artist-card">
+            <img src="{{.Image}}" alt="{{.Name}}">
+        <h2>{{.Name}}</h2>
+        <p><strong>Formed:</strong>{{.CreationDate}}</p>
+        <p><strong>First Album:</strong>{{.FirstAlbum}}</p>
+        <p><strong>Members:</strong></p>
+        <ul>
+            {{range .Members}}
+            <li>{{.}}</li>
+            {{end}}
+        </ul>
+        </div>
+        
+    </main>
 </body>
 </html>
