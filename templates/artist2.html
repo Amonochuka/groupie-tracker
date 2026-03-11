@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5,23 +6,36 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>{{.Name}}</title>
 </head>
+
 <body class="artist-body">
-    <header class="header">
-        <h1>{{.Name}}</h1>
-    </header>
-    <main class="artist-page">
-        <div class="artist-card">
+
+<header class="header">
+    <h1>{{.Name}}</h1>
+</header>
+
+<main class="artist-page">
+
+    <div class="artist-layout">
+
+        <!-- LEFT: IMAGE -->
+        <div class="artist-image">
             <img src="{{.Image}}" alt="{{.Name}}">
-        <h2>{{.Name}}</h2>
-        <p><strong>Formed:</strong>{{.CreationDate}}</p>
-        <p><strong>First Album:</strong>{{.FirstAlbum}}</p>
-        <p><strong>Members:</strong></p>
-        <ul>
-            {{range .Members}}
-            <li>{{.}}</li>
-            {{end}}
-        </ul>
-          <h3>Concerts</h3>
+        </div>
+
+        <!-- RIGHT: DETAILS -->
+        <div class="artist-details">
+
+            <p><strong>Formed:</strong> {{.CreationDate}}</p>
+            <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+
+            <h3>Members</h3>
+            <ul>
+                {{range .Members}}
+                <li>{{.}}</li>
+                {{end}}
+            </ul>
+
+            <h3>Concerts</h3>
 
             {{if .Relations}}
                 {{range $location, $dates := .Relations}}
@@ -37,8 +51,14 @@
             {{else}}
                 <p>No concert data available.</p>
             {{end}}
-        <a href="/" class="btn">Go Back to Artist</a>
+
+            <a href="/" class="btn">← Back to Artists</a>
+
         </div>
-    </main>
+
+    </div>
+
+</main>
+
 </body>
 </html>
