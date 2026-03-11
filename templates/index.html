@@ -19,7 +19,54 @@
         </form>
         </div>
     </header>
-
+    <form method="GET" action="/" class="filters">
+        <h3>Filter Artists</h3>
+        <!-- Creation Date Range -->
+         <div>
+            <label>Creation Date:</label>
+            <input type="number" name="minCreation" placeholder="From (e.g 1980)">
+            <input type="number" name="maxCreation" placeholder="To (e.g 2000)">
+         </div>
+         <!--First Album Year-->
+         <div>
+            <label>First Album Year:</label>
+            <input type="number" name="minAlbum" placeholder="From">
+            <input type="number" name="maxAlbum" placeholder="To">
+         </div>
+         <!--Members Checkbox-->
+         <div>
+            <p>Number of Members</p>
+            <label>
+                <input type="checkbox" name="members" value="1"> 1
+            </label>
+            <label>
+                <input type="checkbox" name="members" value="2"> 2
+            </label>
+            <label>
+                <input type="checkbox" name="members" value="2"> 3
+            </label>
+            <label>
+                <input type="checkbox" name="members" value="2"> 4
+            </label>
+            <label>
+                <input type="checkbox" name="members" value="2"> 5+
+            </label>
+         </div>
+         <!--Location Checkbox-->
+         <div>
+            <p>Location</p>
+            <label>
+            <label type="checkbox" name="location" value="usa"> USA
+            </label>
+            <label>
+            <label type="checkbox" name="location" value="usa"> UK
+            </label>
+            <label>
+            <label type="checkbox" name="location" value="usa"> France
+            </label>
+         </div>
+         <button type="submit">Apply Filter</button>
+    </form>
    <main class="cards-container">
         {{range .}}
         <div class="card">
