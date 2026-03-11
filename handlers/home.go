@@ -4,9 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
-
-	// "strconv"
-	// "strings"
+	"strconv"
 
 	"groupie-tracker/api"
 	"groupie-tracker/models"
@@ -20,6 +18,20 @@ type ArtistView struct {
 // HomeHandler returns an http.HandlerFunc that uses the provided artists
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	query := strings.ToLower(r.URL.Query().Get("search"))
+
+	//FILTERS
+	minCreation,_ := strconv.Atoi(r.URL.Query().Get("minCreation"))
+	maxCreation,_ := strconv.Atoi(r.URL.Query().Get("maxCreation"))
+
+	//--album
+	minAlbum,_ := strconv.Atoi(r.URL.Query().Get("minAlbum"))
+	maxAlbum,_ := strconv.Atoi(r.URL.Query().Get("maxAlbum"))
+
+	// --memebr & location --
+	members := r.URL.Query()["members"]
+	location := r.URL.Query()["Location"]
+
+
 	artists, err := api.FetchArtists()
 	if err != nil {
 		http.Error(w, "Artist error", 500)
@@ -47,11 +59,62 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 		}
+		//Filter  by Creation Date
+		if minCreation != 0 && artist.CreationDate < minCreation {
+			continue
+		}
+		if maxCreation != 0 && artist.CreationDate > maxCreation {
+			continue
+		}
+		//Filter by first album year
+		albumYearStr := artist.FirstAlbum[:4]
+		albumYear, _ := strconv.Atoi(albumYearStr)
+
+		if minAlbum != 0 && albumYear < minAlbum {
+			continue
+		}
+		if maxAlbum != 0 && albumYear > maxAlbum {
+			continue
+		}
+		//Filter by number of members
+		if len(members) > 0 {
+			match := false
+
+			for _, m := range members {
+				num,_ := strconv.Atoi(m)
+				if len(artist.Members) == num {
+					match = true
+					break
+				}
+			}
+			if !match {
+				continue
+			}
+		}
+
+
 		var rel map[string][]string
 		for _, r := range relations {
 			if r.ID == artist.ID {
 				rel = r.DatesLocations
 				break
+			}
+		}
+		//Filter by location
+
+		if len(location) > 0 {
+			match := false
+
+			for _, loc := range location {
+				for key := range rel{
+					if strings.Contains(strings.ToLower(key),strings.ToLower(loc)) {
+						match = true
+						break
+					}
+				}
+			}
+			if !match{
+				continue
 			}
 		}
 
