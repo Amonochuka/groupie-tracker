@@ -53,7 +53,8 @@ body {
     text-align: center;
     transition: transform 0.2s ease;
     width: 100%;
-    max-width: 350px; 
+    max-width: 250px; 
+
 }
 
 .card:hover {
