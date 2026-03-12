@@ -21,6 +21,22 @@
             <li>{{.}}</li>
             {{end}}
         </ul>
+          <h3>Concerts</h3>
+
+            {{if .Relations}}
+                {{range $location, $dates := .Relations}}
+                <div class="concert-block">
+                    <h4>{{$location}}</h4>
+                    <ul>
+                        {{range $dates}}
+                        <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                </div>
+                {{end}}
+            {{else}}
+                <p>No concert data available.</p>
+            {{end}}
         <a href="/" class="btn">Go Back to Artist</a>
         </div>
     </main>
