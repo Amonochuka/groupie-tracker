@@ -5,11 +5,10 @@ import (
 	"groupie-tracker/models"
 
 	"encoding/json"
-	"net/http"
 )
 
 func GetDates() ([]models.Date, error) {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
+	resp, err := DefaultClient.Get("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
 		return nil, err
 	}

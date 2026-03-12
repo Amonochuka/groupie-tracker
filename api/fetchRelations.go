@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"groupie-tracker/models"
-	"net/http"
 )
 
 func FetchRelations() ([]models.Relation, error) {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+	resp, err := DefaultClient.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		return nil, err
 	}

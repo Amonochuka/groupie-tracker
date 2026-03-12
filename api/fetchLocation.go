@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"groupie-tracker/models"
-	"net/http"
 )
 
 func FetchLocations() ([]models.Location, error) {
-	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+	resp, err := DefaultClient.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
 		return nil, err
 	}
