@@ -17,6 +17,10 @@ type ArtistView struct {
 
 // HomeHandler returns an http.HandlerFunc that uses the provided artists
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path!= "/"{
+		RenderError(w,http.StatusNotFound,"Page not found")
+		return
+	}
 	query := strings.ToLower(r.URL.Query().Get("search"))
 
 	//FILTERS
