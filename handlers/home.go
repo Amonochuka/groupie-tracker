@@ -34,12 +34,13 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	artists, err := api.FetchArtists()
 	if err != nil {
-		http.Error(w, "Artist error", 500)
+		RenderError(w,http.StatusInternalServerError,"Failed to load artists.Please try again later.")
 		return
 	}
 	relations, err := api.FetchRelations()
 	if err != nil {
-		http.Error(w, "RelationsError", 500)
+		RenderError(w, http.StatusInternalServerError,
+		"Failed to load concert information.")
 	}
 	// dates, err := api.GetDates()
 	// if err != nil {
@@ -125,7 +126,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
-		http.Error(w, "Template error", 500)
+		RenderError(w,
+		http.StatusInternalServerError,
+		"Internal server error. Please try again later.",
+	)
 		return
 	}
 	locationMap := make(map[string]bool)
@@ -151,6 +155,8 @@ type PageData struct{
 
 err = tmpl.Execute(w, page)
 	if err != nil {
-		http.Error(w, "Execute error", 500)
+		RenderError(w,
+		http.StatusInternalServerError,"Failed to render page.",
+	)
 	}
 }

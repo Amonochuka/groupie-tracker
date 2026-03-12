@@ -156,3 +156,28 @@ select {
     font-size: 14px;
     cursor: pointer;
 }
+/* ===== ERROR PAGE ===== */
+
+.error-body {
+    background-color: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.error-container {
+    max-width: 500px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.error-container h1 {
+    color: #c0392b;
+    margin-bottom: 10px;
+}
+
+.error-container p {
+    margin-bottom: 20px;
+}

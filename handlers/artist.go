@@ -17,19 +17,19 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "invalid artist ID", 400)
+		RenderError(w,http.StatusBadRequest,"Invalid Artist ID.",)
 		return
 	}
 
 	artist, err := api.FetchArtistByID(id)
 	if err != nil {
-		http.Error(w, "Artists error", 500)
+		RenderError(w,http.StatusNotFound,"Artist not found",)
 		return
 	}
 
 	relations, err := api.FetchRelations()
 	if err != nil {
-		http.Error(w, "Relations error", 500)
+		RenderError(w,http.StatusInternalServerError,"Failed to load concert information")
 		return
 	}
 	var rel map[string][]string
@@ -59,9 +59,15 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles("templates/artist.html")
 	if err != nil {
-		http.Error(w, "template error", 500)
+		RenderError(w,
+			http.StatusInternalServerError,
+			"Internal server error.",
+		)
 	}
 	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), 500)
+	RenderError(w,
+			http.StatusInternalServerError,
+			"Failed to render artist page.",
+		)
 	}
 }
