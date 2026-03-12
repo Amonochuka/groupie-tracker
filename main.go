@@ -14,7 +14,7 @@ import (
 
 
 func main(){
-	artists, err:=api.FetchArtists()
+	artists, err:=api.FetchArtists(http.DefaultClient)
 	fmt.Println(len(artists))
 	if err!=nil{
 		log.Fatal(err)

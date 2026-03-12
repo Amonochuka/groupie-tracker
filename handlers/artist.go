@@ -10,26 +10,24 @@ import (
 	"groupie-tracker/api"
 )
 
-
-
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("id")
 
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		RenderError(w,http.StatusBadRequest,"Invalid Artist ID.",)
+		RenderError(w, http.StatusBadRequest, "Invalid Artist ID.")
 		return
 	}
 
-	artist, err := api.FetchArtistByID(id)
+	artist, err := api.FetchArtistByID(http.DefaultClient, id)
 	if err != nil {
-		RenderError(w,http.StatusNotFound,"Artist not found",)
+		RenderError(w, http.StatusNotFound, "Artist not found")
 		return
 	}
 
-	relations, err := api.FetchRelations()
+	relations, err := api.FetchRelations(http.DefaultClient)
 	if err != nil {
-		RenderError(w,http.StatusInternalServerError,"Failed to load concert information")
+		RenderError(w, http.StatusInternalServerError, "Failed to load concert information")
 		return
 	}
 	var rel map[string][]string
@@ -65,7 +63,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		)
 	}
 	if err := tmpl.Execute(w, data); err != nil {
-	RenderError(w,
+		RenderError(w,
 			http.StatusInternalServerError,
 			"Failed to render artist page.",
 		)

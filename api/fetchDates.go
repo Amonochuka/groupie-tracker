@@ -3,12 +3,14 @@ package api
 import (
 	"errors"
 	"groupie-tracker/models"
+	"net/http"
 
 	"encoding/json"
 )
 
-func GetDates() ([]models.Date, error) {
-	resp, err := DefaultClient.Get("https://groupietrackers.herokuapp.com/api/dates")
+func GetDates(client HTTPClient) ([]models.Date, error) {
+	req, _ := http.NewRequest("GET", "https://groupietrackers.herokuapp.com/api/dates", nil)
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -17,8 +19,8 @@ func GetDates() ([]models.Date, error) {
 	return data.Index, err
 }
 
-func getDateByID(ID int) (*models.Date, error) {
-	dates, err := GetDates()
+func getDateByID(client HTTPClient, ID int) (*models.Date, error) {
+	dates, err := GetDates(client)
 	if err != nil {
 		return nil, err
 	}

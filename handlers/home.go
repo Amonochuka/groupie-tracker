@@ -32,12 +32,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	location := r.URL.Query()["locations"]
 
 
-	artists, err := api.FetchArtists()
+	artists, err := api.FetchArtists(http.DefaultClient)
 	if err != nil {
 		RenderError(w,http.StatusInternalServerError,"Failed to load artists.Please try again later.")
 		return
 	}
-	relations, err := api.FetchRelations()
+	relations, err := api.FetchRelations(http.DefaultClient)
 	if err != nil {
 		RenderError(w, http.StatusInternalServerError,
 		"Failed to load concert information.")

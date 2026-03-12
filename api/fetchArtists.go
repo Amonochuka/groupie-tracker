@@ -10,8 +10,9 @@ import (
 var DefaultClient = &http.Client{}
 
 // retrieve data from the Api and decode it to artists slice
-func FetchArtists() ([]models.Artist, error) {
-	resp, err := DefaultClient.Get("https://groupietrackers.herokuapp.com/api/artists")
+func FetchArtists(client HTTPClient) ([]models.Artist, error) {
+	req, _ := http.NewRequest("GET", "https://groupietrackers.herokuapp.com/api/artists", nil)
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -26,8 +27,8 @@ func FetchArtists() ([]models.Artist, error) {
 	return artists, nil
 }
 
-func FetchArtistByID(ID int) (*models.Artist, error) {
-	artists, err := FetchArtists()
+func FetchArtistByID(client HTTPClient, ID int) (*models.Artist, error) {
+	artists, err := FetchArtists(client)
 	if err != nil {
 		return nil, err
 	}
