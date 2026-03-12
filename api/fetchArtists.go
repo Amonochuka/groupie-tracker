@@ -7,7 +7,6 @@ import (
 	"net/http"
 )
 
-var artists []models.Artist
 
 // retrieve data from the Api and decode it to artists slice
 func FetchArtists() ([]models.Artist, error) {
@@ -16,6 +15,9 @@ func FetchArtists() ([]models.Artist, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+	
+	var artists []models.Artist
+
 	err = json.NewDecoder(resp.Body).Decode(&artists)
 	if err != nil{
 		return nil,err
