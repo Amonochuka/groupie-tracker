@@ -3,7 +3,6 @@ package api
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"net/http"
 	"testing"
@@ -57,5 +56,4 @@ func TestFetchRelations(t *testing.T) {
 	if len(relations[0].DatesLocations["new_york-usa"]) != 1 {
 		t.Errorf("unexpected dates for new_york-usa: %+v", relations[0].DatesLocations)
 	}
-	fmt.Println(len(relations))
 }
