@@ -54,7 +54,15 @@ func TestFetchArtists(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if len(artists) != 1 || artists[0].Name != "Band 1" {
-		t.Errorf("expected 1 artist with name Band 1, got %+v", artists)
+	if len(artists) != 2 {
+		t.Errorf("expected 2 artists, got %d", len(artists))
+	}
+
+	if artists[0].Name != "Band 1" {
+		t.Errorf("expected first artist to be Band 1, got %s", artists[0].Name)
+	}
+
+	if artists[1].Name != "Band 2" {
+		t.Errorf("expected second artist to be Band 2, got %s", artists[1].Name)
 	}
 }
