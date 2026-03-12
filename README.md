@@ -1,5 +1,4 @@
-# README.md
-## Groupie Tracker
+# Groupie Tracker
 
 Groupie Tracker is a web application written in Go that displays information about music artists and bands using data from the Groupie Tracker API.
 
