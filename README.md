@@ -135,7 +135,7 @@ or
 ?search=james
 
 ### Testing
-Use ```go test -v -count=1 ./... ``` to check all files without caching
+Use ```go test -v -count=1 ./... ``` to check all test files without caching
 
 Tests are implemented for the API layer using mock HTTP clients.
 
