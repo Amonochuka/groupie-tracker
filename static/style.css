@@ -181,3 +181,10 @@ select {
 .error-container p {
     margin-bottom: 20px;
 }
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    font-size: 20px;
+    color: #555;
+}

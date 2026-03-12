@@ -150,10 +150,12 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	type PageData struct {
 		Artists   []ArtistView
 		Locations []string
+		Query string
 	}
 	page := PageData{
 		Artists:   data,
 		Locations: locations,
+		Query: query,
 	}
 
 	err = tmpl.Execute(w, page)
