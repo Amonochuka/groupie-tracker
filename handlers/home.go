@@ -3,8 +3,8 @@ package handlers
 import (
 	"html/template"
 	"net/http"
-	"strings"
 	"strconv"
+	"strings"
 
 	"groupie-tracker/api"
 	"groupie-tracker/models"
@@ -20,27 +20,27 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	query := strings.ToLower(r.URL.Query().Get("search"))
 
 	//FILTERS
-	minCreation,_ := strconv.Atoi(r.URL.Query().Get("minCreation"))
-	maxCreation,_ := strconv.Atoi(r.URL.Query().Get("maxCreation"))
+	minCreation, _ := strconv.Atoi(r.URL.Query().Get("minCreation"))
+	maxCreation, _ := strconv.Atoi(r.URL.Query().Get("maxCreation"))
 
 	//--album
-	minAlbum,_ := strconv.Atoi(r.URL.Query().Get("minAlbum"))
-	maxAlbum,_ := strconv.Atoi(r.URL.Query().Get("maxAlbum"))
+	minAlbum, _ := strconv.Atoi(r.URL.Query().Get("minAlbum"))
+	maxAlbum, _ := strconv.Atoi(r.URL.Query().Get("maxAlbum"))
 
 	// --memebr & location --
 	members := r.URL.Query()["members"]
 	location := r.URL.Query()["locations"]
 
-
 	artists, err := api.FetchArtists(http.DefaultClient)
+	//err=errors.New("this is a error test")
 	if err != nil {
-		RenderError(w,http.StatusInternalServerError,"Failed to load artists.Please try again later.")
+		RenderError(w, http.StatusInternalServerError, "Failed to load artists.Please try again later.")
 		return
 	}
 	relations, err := api.FetchRelations(http.DefaultClient)
 	if err != nil {
 		RenderError(w, http.StatusInternalServerError,
-		"Failed to load concert information.")
+			"Failed to load concert information.")
 	}
 	// dates, err := api.GetDates()
 	// if err != nil {
@@ -82,7 +82,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			match := false
 
 			for _, m := range members {
-				num,_ := strconv.Atoi(m)
+				num, _ := strconv.Atoi(m)
 				if len(artist.Members) == num {
 					match = true
 					break
@@ -92,7 +92,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 		}
-
 
 		var rel map[string][]string
 		for _, r := range relations {
@@ -107,14 +106,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			match := false
 
 			for _, loc := range location {
-				for key := range rel{
-					if strings.Contains(strings.ToLower(key),strings.ToLower(loc)) {
+				for key := range rel {
+					if strings.Contains(strings.ToLower(key), strings.ToLower(loc)) {
 						match = true
 						break
 					}
 				}
 			}
-			if !match{
+			if !match {
 				continue
 			}
 		}
@@ -127,36 +126,36 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		RenderError(w,
-		http.StatusInternalServerError,
-		"Internal server error. Please try again later.",
-	)
+			http.StatusInternalServerError,
+			"Internal server error. Please try again later.",
+		)
 		return
 	}
 	locationMap := make(map[string]bool)
 
-for _, r := range relations {
-	for loc := range r.DatesLocations {
-		locationMap[loc] = true
+	for _, r := range relations {
+		for loc := range r.DatesLocations {
+			locationMap[loc] = true
+		}
 	}
-}
 
-var locations []string
-for loc := range locationMap {
-	locations = append(locations, loc)
-}
-type PageData struct{
-	Artists []ArtistView
-	Locations []string
-}
+	var locations []string
+	for loc := range locationMap {
+		locations = append(locations, loc)
+	}
+	type PageData struct {
+		Artists   []ArtistView
+		Locations []string
+	}
 	page := PageData{
-	Artists:   data,
-	Locations: locations,
-}
+		Artists:   data,
+		Locations: locations,
+	}
 
-err = tmpl.Execute(w, page)
+	err = tmpl.Execute(w, page)
 	if err != nil {
 		RenderError(w,
-		http.StatusInternalServerError,"Failed to render page.",
-	)
+			http.StatusInternalServerError, "Failed to render page.",
+		)
 	}
 }
