@@ -43,32 +43,29 @@
                 <input type="checkbox" name="members" value="2"> 2
             </label>
             <label>
-                <input type="checkbox" name="members" value="2"> 3
+                <input type="checkbox" name="members" value="3"> 3
             </label>
             <label>
-                <input type="checkbox" name="members" value="2"> 4
+                <input type="checkbox" name="members" value="4"> 4
             </label>
             <label>
-                <input type="checkbox" name="members" value="2"> 5+
+                <input type="checkbox" name="members" value="5"> 5+
             </label>
          </div>
          <!--Location Checkbox-->
          <div>
-            <p>Location</p>
-            <label>
-            <label type="checkbox" name="location" value="usa"> USA
-            </label>
-            <label>
-            <label type="checkbox" name="location" value="usa"> UK
-            </label>
-            <label>
-            <label type="checkbox" name="location" value="usa"> France
-            </label>
-         </div>
-         <button type="submit">Apply Filter</button>
+    <label for="location">Location:</label>
+    <select name="locations" id="location">
+        <option value="">All Locations</option>
+        {{range .Locations}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+    </select>
+</div>
+<button type="submit">Apply Filter</button>
     </form>
    <main class="cards-container">
-        {{range .}}
+        {{range .Artists}}
         <div class="card">
             <img src="{{.Image}}" alt="{{.Name}}">
             <h2>{{.Name}}</h2>

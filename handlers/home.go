@@ -29,7 +29,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	// --memebr & location --
 	members := r.URL.Query()["members"]
-	location := r.URL.Query()["Location"]
+	location := r.URL.Query()["locations"]
 
 
 	artists, err := api.FetchArtists()
@@ -67,7 +67,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		//Filter by first album year
-		albumYearStr := artist.FirstAlbum[:4]
+		albumYearStr := artist.FirstAlbum[6:]
 		albumYear, _ := strconv.Atoi(albumYearStr)
 
 		if minAlbum != 0 && albumYear < minAlbum {
@@ -128,8 +128,28 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Template error", 500)
 		return
 	}
+	locationMap := make(map[string]bool)
 
-	err = tmpl.Execute(w, data)
+for _, r := range relations {
+	for loc := range r.DatesLocations {
+		locationMap[loc] = true
+	}
+}
+
+var locations []string
+for loc := range locationMap {
+	locations = append(locations, loc)
+}
+type PageData struct{
+	Artists []ArtistView
+	Locations []string
+}
+	page := PageData{
+	Artists:   data,
+	Locations: locations,
+}
+
+err = tmpl.Execute(w, page)
 	if err != nil {
 		http.Error(w, "Execute error", 500)
 	}
