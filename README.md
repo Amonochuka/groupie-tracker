@@ -81,22 +81,29 @@ groupie-tracker
 │   ├── fetchLocations.go
 │   ├── fetchDates.go
 │   ├── fetchRelations.go
-│   └── *_test.go
+│   ├── fetchArtists_test.go
+│   ├── fetchLocations_test.go
+│   ├── fetchDates_test.go
+│   └── fetchRelations_test.go
 │
 ├── handlers
 │   ├── home.go
-│   └── artist.go
+│   ├── artist.go
+│   └── errors.go
 │
 ├── models
 │   └── models.go
 │
 ├── templates
 │   ├── index.html
-│   └── artist.html
+│   ├── artist.html
+│   └── error.html
 │
 ├── static
+│   └── style.css
 │
 ├── main.go
+├── go.mod
 └── README.md
 ```
 
